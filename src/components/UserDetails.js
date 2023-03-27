@@ -51,7 +51,7 @@ const UserDetails = () => {
                                         </div>
                                     </div>
                                     <div className="col-md-8 flex-container row px-1">
-                                        <div className='gutters user-plans justify-content-center flex-items col-md-4 border border-secondary'>
+                                        <div className='gutters user-plans justify-content-center flex-items col-md-4'>
 
                                             <div className='welcome-msg p-2'>
                                                 <div className='welcome-designation'>
@@ -60,7 +60,7 @@ const UserDetails = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className='gutters user-plans justify-content-center flex-items col-md-4 border border-secondary'>
+                                        <div className='gutters user-plans justify-content-center flex-items col-md-4'>
 
                                             <div className='welcome-msg p-2'>
                                                 <div className='welcome-designation'>
@@ -69,7 +69,7 @@ const UserDetails = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className='gutters user-plans justify-content-center flex-items col-md-4 border border-secondary'>
+                                        <div className='gutters user-plans justify-content-center flex-items col-md-4'>
                                             <div className='welcome-msg p-2'>
                                                 <div className='welcome-designation'>
                                                     <h4>Twitter</h4>
