@@ -24,20 +24,16 @@ const AllUsers = () => {
   let currentData = userData.slice(indexOfFirstData, indextOfLastData);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-   // this function is for searching data from api
+   // this function is searching serverside data from api
   const searchResult = (search) => {
-    let searchData = allUsers.filter((data) => {
-      return (
-        data.login.toLowerCase().includes(search.toLowerCase()) ||
-        (data.name && data.name.toLowerCase().includes(search.toLowerCase()))
-      );
-    });
-    if (searchData.length > 0) {
-      setUserData(searchData);
-    } else {
-      setUserData(allUsers);
-    }
-  };
+      const url = `https://api.github.com/search/users?q=${encodeURIComponent(search)}`;
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          const userData = data.items;
+          setUserData(userData);
+        });
+    };
 
 
 
