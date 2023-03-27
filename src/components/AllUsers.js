@@ -24,16 +24,23 @@ const AllUsers = () => {
   let currentData = userData.slice(indexOfFirstData, indextOfLastData);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-   // this function is searching serverside data from api
+  
+  // this function is searching serverside data from api
   const searchResult = (search) => {
-      const url = `https://api.github.com/search/users?q=${encodeURIComponent(search)}`;
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          const userData = data.items;
-          setUserData(userData);
-        });
-    };
+    let url = 'https://api.github.com/users';
+    if (search) {
+      url = `https://api.github.com/search/users?q=${encodeURIComponent(search)}`;
+    }
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        const userFind = search ? data.items : data;
+        setUserData(userFind);
+        if (userFind.length === 0 && search) {
+          setUserData(allUsers);
+        }
+      });
+  };
 
 
 
