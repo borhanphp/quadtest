@@ -18,16 +18,19 @@ const AllUsers = () => {
 
 
 
+  // this snippet is for pagination
   let indextOfLastData = currentPage * dataPerPage;
   let indexOfFirstData = indextOfLastData - dataPerPage;
   let currentData = userData.slice(indexOfFirstData, indextOfLastData);
-
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+   // this function is for searching data from api
   const searchResult = (search) => {
     let searchData = allUsers.filter((data) => {
-      return data.login.includes(search);
+      return (
+        data.login.toLowerCase().includes(search.toLowerCase()) ||
+        (data.name && data.name.toLowerCase().includes(search.toLowerCase()))
+      );
     });
     if (searchData.length > 0) {
       setUserData(searchData);
