@@ -27,19 +27,17 @@ const AllUsers = () => {
   
   // this function is searching serverside data from api
   const searchResult = (search) => {
-    let url = 'https://api.github.com/users';
-    if (search) {
-      url = `https://api.github.com/search/users?q=${encodeURIComponent(search)}`;
+    let searchData = allUsers.filter((data) => {
+      return (
+        data.login.toLowerCase().includes(search.toLowerCase()) ||
+        (data.name && data.name.toLowerCase().includes(search.toLowerCase()))
+      );
+    });
+    if (searchData.length > 0) {
+      setUserData(searchData);
+    } else {
+      setUserData(allUsers);
     }
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        const userFind = search ? data.items : data;
-        setUserData(userFind);
-        if (userFind.length === 0 && search) {
-          setUserData(allUsers);
-        }
-      });
   };
 
 
