@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
-const PaginationCom = ({ dataPerPage, totalData, paginate }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+const PaginationCom = ({ dataPerPage, totalData, paginate, currentPage }) => {
 
   const pageNumbers = [];
 
@@ -10,35 +9,34 @@ const PaginationCom = ({ dataPerPage, totalData, paginate }) => {
     pageNumbers.push(i);
   }
 
-  // going back to previous page number
-  const handlePrevClick = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      paginate(currentPage - 1);
-    }
-  };
 
-   // going forward to next page number
-  const handleNextClick = () => {
-    if (currentPage < pageNumbers.length) {
-      setCurrentPage(currentPage + 1);
-      paginate(currentPage + 1);
-    }
-  };
+  // const handlePrevClick = () => {
+  //   if (currentPage > 1) {
+  //     setCurrentPage(currentPage - 1);
+  //     paginate(currentPage - 1);
+  //   }
+  // };
+
+  // const handleNextClick = () => {
+  //   if (currentPage < pageNumbers.length) {
+  //     setCurrentPage(currentPage + 1);
+  //     paginate(currentPage + 1);
+  //   }
+  // };
 
   return (
     <>
       <Pagination aria-label="Page navigation example">
-        <PaginationItem>
+        {/* <PaginationItem>
           <PaginationLink onClick={handlePrevClick} previous href="#">
             Previous
           </PaginationLink>
-        </PaginationItem>
+        </PaginationItem> */}
 
         {pageNumbers.map((number) => (
           <PaginationItem key={number} active={number === currentPage}>
             <PaginationLink onClick={() => {
-              setCurrentPage(number);
+              // setCurrentPage(number);
               paginate(number);
             }} href="#">
               {number}
@@ -46,11 +44,11 @@ const PaginationCom = ({ dataPerPage, totalData, paginate }) => {
           </PaginationItem>
         ))}
 
-        <PaginationItem>
+        {/* <PaginationItem>
           <PaginationLink onClick={handleNextClick} next href="#">
             Next
           </PaginationLink>
-        </PaginationItem>
+        </PaginationItem> */}
       </Pagination>
     </>
   );
