@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { Input } from 'reactstrap';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
-import { data } from '../App';
+import { data, ThemeContext } from '../App';
 
 const AllUsers = () => {
+
+  // mode change 
+const toggle = useContext(ThemeContext);
 
 
 const [currentPage, setCurrentPage] = useState(0);
@@ -68,7 +71,7 @@ const searchResult = async (search, page) => {
           <div className='row justify-content-center'>
             <div className='col-12 mb-2'>
               <div className='search-box'>
-              <Input placeholder='Search By Username' value={searchInput} onChange={(e) => handleSearch(e.target.value)}/>
+              <Input className={`${toggle.theme === 'dark' ? 'bg-dark text-white' : 'bg-white'}`} placeholder='Search By Username' value={searchInput} onChange={(e) => handleSearch(e.target.value)}/>
               </div>
             </div>
           </div>
@@ -78,12 +81,12 @@ const searchResult = async (search, page) => {
             {users?.map((data) => (
               <div className='col-md-3 animated fadeIn mb-2' key={data.id}>
                 <Link to={`/user/${data.login}`} className='link-style'>
-                  <div className='card'>
-                    <div className='card-body'>
+                  <div className={`card ${toggle.theme === 'dark' ? 'bg-dark' : 'bg-white'}`}>
+                    <div className={`card-body ${toggle.theme === 'dark' ? 'bg-dark' : 'bg-white'}`}>
                       <div className='avatar'>
                         <img src={data.avatar_url} className='card-img-top' alt='' />
                       </div>
-                      <h5 className='card-title '>{data.login.toUpperCase()}</h5>
+                      <h5 className={`card-title ${toggle.theme === 'dark' ? 'text-white' : 'text-dark'}`}>{data.login.toUpperCase()}</h5>
                     </div>
                   </div>
                 </Link>
