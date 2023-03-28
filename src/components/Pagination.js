@@ -10,6 +10,7 @@ const PaginationCom = ({ dataPerPage, totalData, paginate }) => {
     pageNumbers.push(i);
   }
 
+  // going back to previous page number
   const handlePrevClick = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -17,6 +18,7 @@ const PaginationCom = ({ dataPerPage, totalData, paginate }) => {
     }
   };
 
+   // going forward to next page number
   const handleNextClick = () => {
     if (currentPage < pageNumbers.length) {
       setCurrentPage(currentPage + 1);
