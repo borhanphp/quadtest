@@ -1,13 +1,19 @@
 .App {
   font-family: sans-serif;
   text-align: center;
-  background-color: #03284D;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
 }
 
+#light {
+  background-color: #ffff;
+}
+
+#dark {
+  background-color: #03284D;
+}
 
 header {
   margin-bottom: 30px;
