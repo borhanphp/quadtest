@@ -18,25 +18,31 @@ const pages = 10;
 const baseUrl = "https://api.github.com/users";
 
 useEffect(() => {
-  getUsers(currentPage);
+  const fetchData = async () => {
+    const data = await getUsers(currentPage);
+    setUsers(data);
+  };
+  fetchData();
 }, [currentPage]);
 
-// loading all users on first load
-const getUsers = async (page) => {
-  const token = "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";
-  const headers = {
-    Authorization: `Bearer ${token}`,
+  // loading all users on first load
+  const getUsers = async (page) => {
+    const token = "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";
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    
+    try {
+      const response = await fetch(`${baseUrl}?per_page=${perPage}&since=${currentPage}`, { headers });
+      const data = await response.json();
+      setUsers(data);
+      setTotalPages(pages);
+    } catch (error) {
+      console.error(error);
+    }
   };
-  
-  try {
-    const response = await fetch(`${baseUrl}?per_page=${perPage}&since=${page * perPage}`, { headers });
-    const data = await response.json();
-    setUsers(data);
-    setTotalPages(pages);
-  } catch (error) {
-    console.error(error);
-  }
-};
+
+
 
 
   // this function is for searching data from api
