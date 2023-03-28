@@ -6,7 +6,7 @@ import ReactPaginate from 'react-paginate';
 import { data } from '../App';
 
 const AllUsers = () => {
-  const allUsers = useContext(data);
+
 
 const [currentPage, setCurrentPage] = useState(0);
 const [users, setUsers] = useState([]);
@@ -15,7 +15,6 @@ const [totalPages, setTotalPages] = useState(0);
 
 const perPage = 8;
 const pages = 10;
-const baseUrl = "https://api.github.com/users";
 
 useEffect(() => {
   const fetchData = async () => {
@@ -25,58 +24,41 @@ useEffect(() => {
   fetchData();
 }, [currentPage]);
 
-  // loading all users on first load
-  const getUsers = async (page) => {
-    const token = "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";
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    
-    try {
-      const response = await fetch(`${baseUrl}?per_page=${perPage}&since=${currentPage}`, { headers });
-      const data = await response.json();
-      setUsers(data);
-      setTotalPages(pages);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-
-
-
-  // this function is for searching data from api
-  const handleSearch = (value) => {
-    if (value === "") {
-      getUsers(0);
-      setSearchInput("");
-    } else {
-      setSearchInput(value);
-      searchResult(value, 1);
-    }
-  };
-  
-  const searchResult = async (search, page) => {
-    const token = "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";
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-  
-    try {
-      const response = await axios.get(`https://api.github.com/search/users?q=${encodeURIComponent(search)}&per_page=${perPage}&since=${currentPage}`,{ headers });
-      const data = response.data;
-      setUsers(data.items);
-      setTotalPages(Math.ceil(pages));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
- const handlePageClick = (data) => {
-  setCurrentPage(data.selected);
+const getUsers = async (currentPage) => {
+  const response = await fetch(`https://api.github.com/users?per_page=${perPage}&since=${currentPage}`);
+  const data = await response.json();
+  console.log('data',data);
+  setTotalPages(Math.ceil(10));
+  return data;
 };
 
 
+// this function is for searching data from api
+const handleSearch = (value) => {
+  if (value === "") {
+    getUsers(0);
+    setSearchInput("");
+  } else {
+    setSearchInput(value);
+    searchResult(value, 1);
+  }
+};
+
+const searchResult = async (search, page) => {
+  
+  try {
+    const response = await axios.get(`https://api.github.com/search/users?q=${encodeURIComponent(search)}&per_page=${perPage}&since=${currentPage}`);
+    const data = response.data;
+    setUsers(data.items);
+    setTotalPages(Math.ceil(20));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+ const handlePageClick = (data) => {
+  setCurrentPage(data.selected + 1);
+};
 
  
   return (
@@ -86,7 +68,7 @@ useEffect(() => {
           <div className='row justify-content-center'>
             <div className='col-12 mb-2'>
               <div className='search-box'>
-                <Input placeholder='Search By Username' value={searchInput} onChange={(e) => handleSearch(e.target.value)}/>
+              <Input placeholder='Search By Username' value={searchInput} onChange={(e) => handleSearch(e.target.value)}/>
               </div>
             </div>
           </div>
